@@ -5,6 +5,9 @@
   "main": "app.js",
   "author": "michal burdzy",
   "license": "MIT",
+  "engines": {
+    "node": "8.12.0"
+  },
   "dependencies": {
     "body-parser": "^1.18.3",
     "cookie-session": "^2.0.0-beta.3",
@@ -24,6 +27,6 @@
     "server": " nodemon --inspect app.js",
     "client": "yarn --cwd client start",
     "dev": "concurrently \"yarn server\" \"yarn client\" --kill-others-on-fail",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn add --prefix client && yarn build --profix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn add --prefix client && yarn build --prefix client"
   }
 }
