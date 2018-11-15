@@ -27,6 +27,6 @@
     "server": " nodemon --inspect app.js",
     "client": "yarn --cwd client start",
     "dev": "concurrently \"yarn server\" \"yarn client\" --kill-others-on-fail",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && cd client && yarn add && yarn build "
+    "heroku-postbuild": "YARN_PRODUCTION=false yarn --cwd client add && yarn --cwd client build "
   }
 }
