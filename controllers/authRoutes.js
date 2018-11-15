@@ -8,14 +8,14 @@ module.exports = app => {
 
   app.get('/api/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.redirect('/dashboard');
   });
 
   app.get(
     '/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
-      res.redirect('/');
+      res.redirect('/dashboard');
     },
   );
 
@@ -24,6 +24,6 @@ module.exports = app => {
   });
 
   app.get('/', (req, res) => {
-    res.json('OK TEST');
+    res.redirect('/dashboard');
   });
 };
