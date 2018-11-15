@@ -5,27 +5,31 @@ import Stripe from './Stripe';
 
 class Navbar extends Component {
   renderContent() {
-    switch (this.props.user) {
-      case false || undefined:
-        return (
-          <li>
-            <a href="/auth/google">Login</a>
-          </li>
-        );
-      default:
-        return [
-          <li key="stripe">
-            <Stripe />
-          </li>,
-          <li key="credits">&nbsp;Credits: {this.props.user.credits}&nbsp;</li>,
-          <li key="user">{this.props.user.name}</li>,
-          <li key="google">
-            <a href="/api/logout">Logout</a>
-          </li>,
-        ];
+    if (
+      this.props.user === false ||
+      this.props.user === undefined ||
+      this.props.user.name === undefined
+    ) {
+      return (
+        <li>
+          <a href="/auth/google">Login</a>
+        </li>
+      );
+    } else {
+      return [
+        <li key="stripe">
+          <Stripe />
+        </li>,
+        <li key="credits">&nbsp;Credits: {this.props.user.credits}&nbsp;</li>,
+        <li key="user">{this.props.user.name}</li>,
+        <li key="google">
+          <a href="/api/logout">Logout</a>
+        </li>,
+      ];
     }
   }
   render() {
+    console.log(this.props);
     return (
       <nav>
         <div className="nav-wrapper">
