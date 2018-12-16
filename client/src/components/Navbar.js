@@ -24,12 +24,11 @@ class Navbar extends Component {
         <li key="user">{this.props.user.name}</li>,
         <li key="google">
           <a href="/api/logout">Logout</a>
-        </li>,
+        </li>
       ];
     }
   }
   render() {
-    console.log(this.props);
     return (
       <nav>
         <div className="nav-wrapper">
@@ -51,5 +50,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  actions,
+  actions
 )(Navbar);

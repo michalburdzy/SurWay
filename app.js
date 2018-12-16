@@ -12,8 +12,8 @@ const PORT = process.env.PORT || 5000;
 app.use(
   cookieSession({
     keys: ['asddsaasddsa'],
-    maxAge: 60 * 60 * 1000,
-  }),
+    maxAge: 60 * 60 * 1000
+  })
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -34,26 +34,35 @@ passport.use(
         '946065475020-q7obeobej1nprj7b0r8av8b78spf8hvq.apps.googleusercontent.com',
 
       clientSecret: '1Y9MnDjdXjFUhsWh97KL_U74',
-      callbackURL: '/auth/google/callback',
+      callbackURL: '/auth/google/callback'
     },
     async (accessToken, refreshToken, profile, done) => {
       const user = await db.User.findOne({ googleID: profile.id });
       if (!user) {
         const newUser = await db.User.create({
           googleID: profile.id,
-          name: profile.displayName,
+          name: profile.displayName
           // picture: profile.photos[0].value,
         });
         done(null, newUser);
       } else {
         done(null, user);
       }
-    },
-  ),
+    }
+  )
 );
 
-require('./controllers/authRoutes')(app);
-require('./controllers/billingRoutes')(app);
+app.post('/event', function(req, res) {
+  var events = req.body;
+  events.forEach(function(event) {
+    // Here, you now have each event and can process them how you like
+    console.log(event);
+  });
+});
+
+require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
