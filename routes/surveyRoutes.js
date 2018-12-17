@@ -6,9 +6,11 @@ const client = require('@sendgrid/client');
 const sengridKey = require('../controllers/config/keys').sendgridKey;
 client.setApiKey(sengridKey);
 const { User } = require('../models');
+const Mailer = require('../services/mailer');
+const mailTemplate = require('../services/template');
 
 module.exports = app => {
-  app.post('/api/surveys/webhooks', (req, res) => {
+  app.post('/api/event', (req, res) => {
     console.log(res.body);
     console.log('YOU CLICKED YES!!');
     res.json('YOU CLICKED YES!!');
@@ -25,7 +27,7 @@ module.exports = app => {
         .split(',')
         .map(email => ({ email: email.trim() }));
 
-      const newSurwey = await Survey.create({
+      const newSurvey = await Survey.create({
         title,
         body,
         subject,
@@ -33,7 +35,7 @@ module.exports = app => {
         _createdBy: req.user.id
       });
 
-      const mailer = new Mailer(newSurvey, template);
+      const mailer = new Mailer(newSurvey, mailTemplate(newSurvey));
 
       // sgMail.setApiKey(sgKey);
       // let sendTo = [];

@@ -52,7 +52,8 @@ passport.use(
   )
 );
 
-app.post('/event', function(req, res) {
+// testing the sendgrid
+app.post('/api/event', function(req, res) {
   var events = req.body;
   events.forEach(function(event) {
     // Here, you now have each event and can process them how you like
