@@ -4,6 +4,7 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const db = require('./models');
+const { clientID, clientSecret } = require('./controllers/config/keys');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
@@ -30,10 +31,8 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new GoogleStrategy(
     {
-      clientID:
-        '946065475020-q7obeobej1nprj7b0r8av8b78spf8hvq.apps.googleusercontent.com',
-
-      clientSecret: '1Y9MnDjdXjFUhsWh97KL_U74',
+      clientID,
+      clientSecret,
       callbackURL: '/auth/google/callback'
     },
     async (accessToken, refreshToken, profile, done) => {
