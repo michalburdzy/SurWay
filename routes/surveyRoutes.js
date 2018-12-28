@@ -16,6 +16,10 @@ module.exports = app => {
     res.json('YOU CLICKED YES!!');
   });
 
+  app.get('/api/surveys/feedback', (req, res) => {
+    res.send('<h1>Thank you for your feedback!</h1>');
+  });
+
   app.post('/api/surveys', authenticateUser, checkCredits, async (req, res) => {
     const { title, body, subject, recipients } = req.body;
     const recipientsList = recipients.split(',').map(el => el.trim());
@@ -29,6 +33,18 @@ module.exports = app => {
     });
 
     const mailer = new Mailer(newSurvey, mailTemplate(newSurvey));
-    mailer.send();
+
+    try {
+      await mailer.send();
+      await newSurvey.save();
+      // req.user.credits -= 1;
+      // const updatedUser = await req.user.save();
+      const foundUser = await User.findById(req.user.id);
+      foundUser.credits -= 1;
+      await foundUser.save();
+      res.send(foundUser);
+    } catch (error) {
+      res.status(422).json({ error });
+    }
   });
 };

@@ -1,3 +1,5 @@
+const keys = require('../controllers/config/keys');
+
 module.exports = survey => {
   return `
     <html>
@@ -7,8 +9,8 @@ module.exports = survey => {
           <p>Select one option please</p>
           <p>${survey.body}</p>
           <div>
-          <a href='http://localhost:3000'>Yes</a>
-          <a href='http://localhost:3000'>No</a>
+          <a href="${keys.emailDomain}/api/surveys/feedback">Yes</a>
+          <a href="${keys.emailDomain}/api/surveys/feedback">No</a>
           </div>
         </div>
       </body>
