@@ -6,9 +6,9 @@ import Stripe from './Stripe';
 class Navbar extends Component {
   renderContent() {
     if (
-      this.props.user === false ||
-      this.props.user === undefined ||
-      this.props.user.name === undefined
+      this.props.auth.user === false ||
+      this.props.auth.user === undefined ||
+      this.props.auth.user.name === undefined
     ) {
       return (
         <li>
@@ -20,8 +20,10 @@ class Navbar extends Component {
         <li key="stripe">
           <Stripe />
         </li>,
-        <li key="credits">&nbsp;Credits: {this.props.user.credits}&nbsp;</li>,
-        <li key="user">{this.props.user.name}</li>,
+        <li key="credits">
+          &nbsp;Credits: {this.props.auth.user.credits}&nbsp;
+        </li>,
+        <li key="user">{this.props.auth.user.name}</li>,
         <li key="google">
           <a href="/api/logout">Logout</a>
         </li>

@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Navbar from './Navbar';
-
+import Dashboard from './Dashboard';
+import NewSurvey from './NewSurvey';
 const Landing = () => <div>LANDING</div>;
-const Dashboard = () => <div>DASHBOARD</div>;
 
 class App extends Component {
   componentDidMount() {
@@ -13,12 +13,13 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="container">
         <Navbar />
         <BrowserRouter>
           <div>
             <Route path="/" exact component={Landing} />
             <Route path="/dashboard" exact component={Dashboard} />
+            <Route path="/surveys/new" exact component={NewSurvey} />
           </div>
         </BrowserRouter>
       </div>
@@ -32,5 +33,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  actions,
+  actions
 )(App);
