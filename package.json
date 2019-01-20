@@ -34,7 +34,7 @@
     "server": " nodemon  app.js",
     "client": "cd client && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\" --kill-others-on-fail \"npm run webhook\"",
-    "heroku-postbuild": "YARN_PRODUCTION=false yarn --cwd client install && yarn --cwd client build ",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && npm install && npm run build",
     "webhook": "forever sendgrid_webhook.js"
   }
 }
