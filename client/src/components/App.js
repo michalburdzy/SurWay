@@ -6,11 +6,18 @@ import Navbar from './Navbar';
 import Dashboard from './Dashboard';
 import NewSurvey from './NewSurvey';
 import ThankYou from './ThankYou';
-const Landing = () => <div>LANDING</div>;
+import Landing from './Landing';
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
+  }
+  renderHomepage(){
+    if (this.props.auth.user === false){
+      return <Route path="/" exact component={Landing} />
+    } else {
+      return <Route path="/" exact component={Dashboard} />
+    }
   }
   render() {
     return (
@@ -18,7 +25,7 @@ class App extends Component {
         <Navbar />
         <BrowserRouter>
           <div>
-            <Route path="/" exact component={Dashboard} />
+            {this.renderHomepage()}
             <Route path="/surveys/new" exact component={() => NewSurvey} />
             <Route path="/api/surveys/:id/:choice" exact component={ThankYou} />
           </div>
