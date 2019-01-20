@@ -5,6 +5,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 import Dashboard from './Dashboard';
 import NewSurvey from './NewSurvey';
+import ThankYou from './ThankYou';
 const Landing = () => <div>LANDING</div>;
 
 class App extends Component {
@@ -18,7 +19,8 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Route path="/" exact component={Dashboard} />
-            <Route path="/surveys/new" exact component={NewSurvey} />
+            <Route path="/surveys/new" exact component={() => NewSurvey} />
+            <Route path="/api/surveys/:id/:choice" exact component={ThankYou} />
           </div>
         </BrowserRouter>
       </div>
