@@ -29,6 +29,9 @@ export const handleToken = token => async dispatch => {
 
 export const sendSurvey = (values, history) => async dispatch => {
   const res = await axios.post('/api/surveys', values);
+  if(res.status === 403){
+    alert('No money, no honey!')
+  }
   history.push('/surveys')
   dispatch({
     type: 'FETCH_USER',
@@ -38,4 +41,12 @@ export const sendSurvey = (values, history) => async dispatch => {
       picture: res.data.picture,
     },
   });
+}
+
+export const getUserSurveys = () => async dispatch => {
+  const surveys = await axios.get('/api/surveys')
+  return dispatch({
+    type: 'FETCH_SURVEYS',
+    surveys: surveys.data
+  })
 }

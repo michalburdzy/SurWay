@@ -3,8 +3,9 @@ const sendgridKey = require('../controllers/config/keys').sendgridKey;
 
 class Mailer {
   constructor({ subject, recipients }, content) {
+    const to = recipients.map(recipient => recipient.email)
     this.message = {
-      to: recipients,
+      to,
       from: 'no-reply@emaily.com',
       subject: subject,
       html: content,

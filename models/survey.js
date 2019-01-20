@@ -19,12 +19,11 @@ const surveySchema = new Schema(
       required: true
     },
     recipients: {
-      type: [String],
+      type: [recipientSchema],
       required: true
     },
-    feedback: {
-      type: [feedbackSchema]
-    },
+    yes: {type: Number, default: 0},
+    no: {type: Number, default: 0},
     _createdBy: {
       required: true,
       type: Schema.Types.ObjectId,
