@@ -1,6 +1,6 @@
 {
   "name": "surway",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "secure app for creating surways for a low price",
   "main": "app.js",
   "author": "michal burdzy",
