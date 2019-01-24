@@ -2,8 +2,14 @@ import axios from 'axios';
 
 export const fetchUser = () => async dispatch => {
   let res = await axios.get('/api/current_user');
-  if (res.status !== 200) {
+  if (res.status === 504) {
     res = await axios.get('/api/current_user');
+  }
+  if (!res.data) {
+    return dispatch({
+      type: 'FETCH_USER',
+      user: false
+    });
   }
   dispatch({
     type: 'FETCH_USER',
@@ -29,10 +35,10 @@ export const handleToken = token => async dispatch => {
 
 export const sendSurvey = (values, history) => async dispatch => {
   const res = await axios.post('/api/surveys', values);
-  if(res.status === 403){
+  if (res.status === 403) {
     alert('No money, no honey!')
   }
-  history.push('/surveys')
+  history.push('/')
   dispatch({
     type: 'FETCH_USER',
     user: {

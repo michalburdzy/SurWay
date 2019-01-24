@@ -4,32 +4,30 @@ const { URL } = require('url')
 const authenticateUser = require('../middleware/authenticateUser');
 const checkCredits = require('../middleware/checkCredits');
 const { Survey } = require('../models');
-// const sgMail = require('@sendgrid/mail');
-// const client = require('@sendgrid/client');
-// const sengridKey = require('../controllers/config/keys').sendgridKey;
-// client.setApiKey(sengridKey);
 const { User } = require('../models');
 const Mailer = require('../services/mailer');
 const mailTemplate = require('../services/template');
+const cleanHash = require('../middleware/cleanHash')
 
 module.exports = app => {
 
-
   app.get('/api/surveys', authenticateUser, async (req, res) => {
-    const userSurveys = await Survey.find({_createdBy: req.user.id}).select({recipients: 0, createdBy: 0})
+
+    const userSurveys = await Survey.find({ _createdBy: req.user.id })
+      .cacheQuery({ key: req.user.id });
+
     res.send(userSurveys)
   })
 
   app.get('/api/surveys/:id/:choice', (req, res) => {
-    console.log('asd')
     res.send('<h1>Thank you for your feedback!</h1>');
   });
 
-  app.post('/api/surveys', authenticateUser, checkCredits, async (req, res) => {
+  app.post('/api/surveys', authenticateUser, checkCredits, cleanHash, async (req, res) => {
     const { title, body, subject, recipients } = req.body;
     const recipientsList = recipients.split(',').map(el => el.trim()).map(el => {
-      if(el !== ''){
-        return {email: el}
+      if (el !== '') {
+        return { email: el }
       }
     });
 
@@ -37,7 +35,7 @@ module.exports = app => {
       title,
       body,
       subject,
-      feedback: {yes: 0, no: 0},
+      feedback: { yes: 0, no: 0 },
       recipients: recipientsList,
       _createdBy: req.user.id
     });
@@ -60,32 +58,30 @@ module.exports = app => {
   app.post('/api/surveys/webhooks', (req, res) => {
     const p = new Path('/api/surveys/:surveyId/:choice');
     _.chain(req.body)
-      .map(({url, email}) => {
+      .map(({ url, email }) => {
         const match = p.test(new URL(url).pathname)
-        if(match){
-          return {email, surveyId: match.surveyId, choice: match.choice}
+        if (match) {
+          return { email, surveyId: match.surveyId, choice: match.choice }
         }
       })
       .compact()
       .uniqBy('email', 'surveyId')
-      .each(({email, surveyId, choice }) => {
+      .each(({ email, surveyId, choice }) => {
         Survey.updateOne({
-            _id: surveyId,
-            recipients: {
-              $elemMatch: {
-                email: email, 
-                responded: false
-              }
-            },
+          _id: surveyId,
+          recipients: {
+            $elemMatch: {
+              email: email,
+              responded: false
+            }
           },
+        },
           {
-            $inc: {[choice]: 1},
-            $set: {'recipients.$.responded': true}
+            $inc: { [choice]: 1 },
+            $set: { 'recipients.$.responded': true }
           }).exec()
-        })
+      })
       .value()
     res.send({})
   })
-
-
 };

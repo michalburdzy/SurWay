@@ -12,8 +12,8 @@ class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
   }
-  renderHomepage(){
-    if (this.props.auth.user === false){
+  renderHomepage() {
+    if (this.props.auth.user === false || this.props.auth.user === undefined || this.props.auth.user.name === undefined) {
       return <Route path="/" exact component={Landing} />
     } else {
       return <Route path="/" exact component={Dashboard} />
@@ -26,7 +26,7 @@ class App extends Component {
         <BrowserRouter>
           <div>
             {this.renderHomepage()}
-            <Route path="/surveys/new" exact component={() => NewSurvey} />
+            <Route path="/surveys/new" exact render={() => <NewSurvey />} />
             <Route path="/api/surveys/:id/:choice" exact component={ThankYou} />
           </div>
         </BrowserRouter>

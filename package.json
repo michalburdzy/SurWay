@@ -27,7 +27,8 @@
     "concurrently": "^4.0.1",
     "debug": "^4.1.1",
     "forever": "^0.15.3",
-    "localtunnel": "^1.9.1"
+    "localtunnel": "^1.9.1",
+    "redis": "^2.8.0"
   },
   "scripts": {
     "start": "node app.js",
