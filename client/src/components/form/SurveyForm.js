@@ -26,7 +26,7 @@ class SurveyForm extends Component {
         <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
           {this.renderFields()}
           <Link
-            to="/dashboard"
+            to="/"
             type="submit"
             className="red btn-flat left white-text"
           >
@@ -43,7 +43,7 @@ class SurveyForm extends Component {
 
 function validate(values) {
   let errors = {};
-  
+
   errors.recipients = emailValidator(values.recipients || '')
 
   fieldsConfig.forEach(({ name, fieldError }) => {
