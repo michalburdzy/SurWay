@@ -1,0 +1,4 @@
+/controllers/config/dev.js
+/controllers/config/secret.js
+node_modules
+client/node_modules
