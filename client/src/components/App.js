@@ -10,7 +10,7 @@ import Landing from './Landing';
 
 class App extends Component {
   componentDidMount() {
-    this.props.fetchUser();
+    // this.props.fetchUser();
   }
   renderHomepage() {
     if (this.props.auth.user === false || this.props.auth.user === undefined || this.props.auth.user.name === undefined) {
@@ -25,9 +25,7 @@ class App extends Component {
         <Navbar />
         <BrowserRouter>
           <div>
-            {/* {this.renderHomepage()} */}
-            <Route path="/" exact component={Landing} />
-
+            {this.renderHomepage()}
             <Route path="/surveys/new" exact render={() => <NewSurvey />} />
             <Route path="/api/surveys/:id/:choice" exact component={ThankYou} />
           </div>
