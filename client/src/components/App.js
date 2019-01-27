@@ -10,7 +10,7 @@ import Landing from './Landing';
 
 class App extends Component {
   componentDidMount() {
-    // this.props.fetchUser();
+    this.props.fetchUser();
   }
   renderHomepage() {
     if (this.props.auth.user === false || this.props.auth.user === undefined || this.props.auth.user.name === undefined) {
