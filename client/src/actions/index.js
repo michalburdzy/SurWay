@@ -2,9 +2,7 @@ import axios from 'axios';
 
 export const fetchUser = () => async dispatch => {
   let res = await axios.get('/api/current_user');
-  if (res.status === 504) {
-    res = await axios.get('/api/current_user');
-  }
+
   if (!res.data) {
     return dispatch({
       type: 'FETCH_USER',
