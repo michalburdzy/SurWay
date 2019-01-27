@@ -25,7 +25,9 @@ class App extends Component {
         <Navbar />
         <BrowserRouter>
           <div>
-            {this.renderHomepage()}
+            {/* {this.renderHomepage()} */}
+            <Route path="/" exact component={Landing} />
+
             <Route path="/surveys/new" exact render={() => <NewSurvey />} />
             <Route path="/api/surveys/:id/:choice" exact component={ThankYou} />
           </div>
