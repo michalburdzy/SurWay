@@ -3,22 +3,31 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Navbar from './Navbar';
-
-const Landing = () => <div>LANDING</div>;
-const Dashboard = () => <div>DASHBOARD</div>;
+import Dashboard from './Dashboard';
+import NewSurvey from './NewSurvey';
+import ThankYou from './ThankYou';
+import Landing from './Landing';
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
   }
+  renderHomepage() {
+    if (this.props.auth.user === false || this.props.auth.user === undefined || this.props.auth.user.name === undefined) {
+      return <Route path="/" exact component={Landing} />
+    } else {
+      return <Route path="/" exact component={Dashboard} />
+    }
+  }
   render() {
     return (
-      <div>
+      <div className="container">
         <Navbar />
         <BrowserRouter>
           <div>
-            <Route path="/" exact component={Landing} />
-            <Route path="/dashboard" exact component={Dashboard} />
+            {this.renderHomepage()}
+            <Route path="/surveys/new" exact render={() => <NewSurvey />} />
+            <Route path="/api/surveys/:id/:choice" exact component={ThankYou} />
           </div>
         </BrowserRouter>
       </div>
@@ -32,5 +41,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  actions,
+  actions
 )(App);

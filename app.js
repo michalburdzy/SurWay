@@ -4,6 +4,7 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const db = require('./models');
+const { clientID, clientSecret } = require('./controllers/config/keys');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
@@ -12,8 +13,8 @@ const PORT = process.env.PORT || 5000;
 app.use(
   cookieSession({
     keys: ['asddsaasddsa'],
-    maxAge: 60 * 60 * 1000,
-  }),
+    maxAge: 60 * 60 * 1000
+  })
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -30,30 +31,29 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new GoogleStrategy(
     {
-      clientID:
-        '946065475020-q7obeobej1nprj7b0r8av8b78spf8hvq.apps.googleusercontent.com',
-
-      clientSecret: '1Y9MnDjdXjFUhsWh97KL_U74',
-      callbackURL: '/auth/google/callback',
+      clientID,
+      clientSecret,
+      callbackURL: '/auth/google/callback'
     },
     async (accessToken, refreshToken, profile, done) => {
       const user = await db.User.findOne({ googleID: profile.id });
       if (!user) {
         const newUser = await db.User.create({
           googleID: profile.id,
-          name: profile.displayName,
+          name: profile.displayName
           // picture: profile.photos[0].value,
         });
         done(null, newUser);
       } else {
         done(null, user);
       }
-    },
-  ),
+    }
+  )
 );
 
-require('./controllers/authRoutes')(app);
-require('./controllers/billingRoutes')(app);
+require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

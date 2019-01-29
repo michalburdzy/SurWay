@@ -1,4 +1,4 @@
-const { stripeSecretKey } = require('./config/keys');
+const { stripeSecretKey } = require('../controllers/config/keys');
 const stripe = require('stripe')(stripeSecretKey);
 const { User } = require('../models');
 const authenticateUser = require('../middleware/authenticateUser');
@@ -13,7 +13,7 @@ module.exports = app => {
         req.body.card.brand
       } card ending with ${req.body.card.last4} and email ${
         req.body.card.name
-      }.`,
+      }.`
     });
     const currentUser = await User.findById(req.user._id);
     currentUser.credits += 5;
