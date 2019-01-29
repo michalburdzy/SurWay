@@ -24,6 +24,7 @@
     "path-parser": "^4.2.0",
     "puppeteer": "^1.11.0",
     "react-stripe-checkout": "^2.6.3",
+    "safe-buffer": "^5.1.2",
     "stripe": "^6.15.0"
   },
   "devDependencies": {
@@ -36,7 +37,7 @@
     "start": "node app.js",
     "server": " nodemon  app.js",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\" --kill-others-on-fail \"npm run webhook\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\" --kill-others-on-fail",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && npm install && npm run build",
     "test": "mocha --timeout 5000"
   }
