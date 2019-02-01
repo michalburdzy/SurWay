@@ -1,5 +1,5 @@
 module.exports = {
-  mongoURI: '127.0.0.1:2708/surway',
+  mongoURI: '127.0.0.1:27017/surway',
   clientID:
     '145327581965-6cabi6tvvighm9lap76noit5a13fp27h.apps.googleusercontent.com',
   // '424950884378-l7jqt3fjb7aal3rd7o6j3edisv90tp91.apps.googleusercontent.com',
@@ -12,5 +12,6 @@ module.exports = {
   sendgridKey:
     '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',
   emailDomain: 'http://localhost:3000',
-  testUserId: '5c25ae528a4ef616b8db1082'
+  testUserId: '5c25ae528a4ef616b8db1082',
+  redisUrl: 'redis://127.0.0.1:6379'
 };

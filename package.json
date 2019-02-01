@@ -24,6 +24,7 @@
         "path-parser": "^4.2.0",
         "puppeteer": "^1.11.0",
         "react-stripe-checkout": "^2.6.3",
+        "redis": "^2.8.0",
         "safe-buffer": "^5.1.2",
         "stripe": "^6.15.0"
     },

@@ -55,12 +55,14 @@ require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
 require('./routes/surveyRoutes')(app);
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'ci') {
   app.use(express.static('client/build'));
 
   const path = require('path');
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    const prodPath = path.resolve(__dirname, 'client', 'build', 'index.html')
+    console.log(prodPath)
+    res.sendFile(prodPath);
   });
 }
 
