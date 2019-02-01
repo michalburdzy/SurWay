@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('../services/cache')
 const { mongoURI } = require('../controllers/config/keys');
 
 mongoose.connection.on('open', () => {

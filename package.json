@@ -1,45 +1,47 @@
 {
-  "name": "surway",
-  "version": "1.0.1",
-  "description": "secure app for creating surways for a low price",
-  "main": "app.js",
-  "author": "michal burdzy",
-  "license": "MIT",
-  "engines": {
-    "node": "^10.15.0"
-  },
-  "dependencies": {
-    "@sendgrid/client": "^6.3.0",
-    "@sendgrid/mail": "^6.3.1",
-    "body-parser": "^1.18.3",
-    "chai": "^4.2.0",
-    "cookie-session": "^2.0.0-beta.3",
-    "express": "^4.16.4",
-    "http-proxy-middleware": "^0.19.0",
-    "lodash": "^4.17.11",
-    "mocha": "^5.2.0",
-    "mongoose": "^5.3.8",
-    "passport": "^0.4.0",
-    "passport-google-oauth20": "^1.0.0",
-    "path-parser": "^4.2.0",
-    "puppeteer": "^1.11.0",
-    "react-stripe-checkout": "^2.6.3",
-    "safe-buffer": "^5.1.2",
-    "stripe": "^6.15.0"
-  },
-  "devDependencies": {
-    "concurrently": "^4.0.1",
-    "debug": "^4.1.1",
-    "forever": "^0.15.3",
-    "localtunnel": "^1.9.1"
-  },
-  "scripts": {
-    "start": "node app.js",
-    "build": "npm install --prefix client && npm run build --prefix client",
-    "server": " nodemon  app.js",
-    "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\" --kill-others-on-fail",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && npm install && npm run build",
-    "test": "mocha --timeout 5000"
-  }
+    "name": "surway",
+    "version": "1.0.1",
+    "description": "secure app for creating surways for a low price",
+    "main": "app.js",
+    "author": "michal burdzy",
+    "license": "MIT",
+    "engines": {
+        "node": "^10.15.0"
+    },
+    "dependencies": {
+        "@sendgrid/client": "^6.3.0",
+        "@sendgrid/mail": "^6.3.1",
+        "body-parser": "^1.18.3",
+        "chai": "^4.2.0",
+        "cookie-session": "^2.0.0-beta.3",
+        "express": "^4.16.4",
+        "http-proxy-middleware": "^0.19.0",
+        "lodash": "^4.17.11",
+        "mocha": "^5.2.0",
+        "mongoose": "^5.3.8",
+        "passport": "^0.4.0",
+        "passport-google-oauth20": "^1.0.0",
+        "path-parser": "^4.2.0",
+        "puppeteer": "^1.11.0",
+        "react-stripe-checkout": "^2.6.3",
+        "safe-buffer": "^5.1.2",
+        "stripe": "^6.15.0"
+    },
+    "devDependencies": {
+        "concurrently": "^4.0.1",
+        "debug": "^4.1.1",
+        "forever": "^0.15.3",
+        "localtunnel": "^1.9.1"
+    },
+    "scripts": {
+        "start": "node app.js",
+        "build": "npm install --prefix client && npm run build --prefix client",
+        "server": " nodemon  app.js",
+        "client": "cd client && npm start",
+        "dev": "concurrently \"npm run server\" \"npm run client\" --kill-others-on-fail",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && npm install && npm run build",
+        "test": "mocha --timeout 5000",
+        "redis": "^2.8.0",
+        "webhook": "forever sendgrid_webhook.js"
+    }
 }

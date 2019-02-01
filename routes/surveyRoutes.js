@@ -7,12 +7,14 @@ const { Survey } = require('../models');
 const { User } = require('../models');
 const Mailer = require('../services/mailer');
 const mailTemplate = require('../services/template');
+const cleanHash = require('../middleware/cleanHash')
 
 module.exports = app => {
 
   app.get('/api/surveys', authenticateUser, async (req, res) => {
 
     const userSurveys = await Survey.find({ _createdBy: req.user.id })
+      .cacheQuery({ key: req.user.id });
 
     res.send(userSurveys)
   })
@@ -21,7 +23,7 @@ module.exports = app => {
     res.send('<h1>Thank you for your feedback!</h1>');
   });
 
-  app.post('/api/surveys', authenticateUser, checkCredits, async (req, res) => {
+  app.post('/api/surveys', authenticateUser, checkCredits, cleanHash, async (req, res) => {
     const { title, body, subject, recipients } = req.body;
     const recipientsList = recipients.split(',').map(el => el.trim()).map(el => {
       if (el !== '') {

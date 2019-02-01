@@ -9,6 +9,12 @@ export const fetchUser = () => async dispatch => {
       user: false
     });
   }
+  if (!res.data) {
+    return dispatch({
+      type: 'FETCH_USER',
+      user: false
+    });
+  }
   dispatch({
     type: 'FETCH_USER',
     user: {

@@ -43,9 +43,7 @@ class SurveyForm extends Component {
 
 function validate(values) {
   let errors = {};
-
   errors.recipients = emailValidator(values.recipients || '')
-
   fieldsConfig.forEach(({ name, fieldError }) => {
     if (!values[name]) {
       errors[name] = fieldError;
