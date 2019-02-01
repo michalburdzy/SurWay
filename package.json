@@ -41,7 +41,7 @@
         "client": "cd client && npm start",
         "dev": "concurrently \"npm run server\" \"npm run client\" --kill-others-on-fail",
         "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && npm install && npm run build",
-        "test": "mocha --timeout 5000",
+        "test": "mocha --timeout 5000 --exit",
         "redis": "^2.8.0",
         "webhook": "forever sendgrid_webhook.js"
     }

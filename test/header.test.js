@@ -31,21 +31,21 @@ describe('', () => {
     const url = page.url();
     expect(url).to.match(/accounts\.google\.com/)
   })
-  it.only('Shows logout button when signed in', async () => {
-    const sessionObject = {
-      passport: { user: testUserId }
-    }
-    const session = Buffer.from(
-      JSON.stringify(sessionObject)
-    ).toString('base64')
-    const keygrip = new Keygrip([cookieKey])
-    const now = new Date();
-    now.setTime(now.getTime() + 24 * 60 * 60 * 1000);
-    console.log(now)
-    const sig = keygrip.sign('session=' + session)
-    await page.setCookie({ 'name': 'session', 'value': session, expires: now.getTime() },
-      { 'name': 'sessionsig', 'value': sig, expires: now.getTime() })
-    // await page.setCookie({ 'name': 'session.sig', 'value': sig })
-    // await page.goto('localhost:3000')
-  })
+  // it('Shows logout button when signed in', async () => {
+  //   const sessionObject = {
+  //     passport: { user: testUserId }
+  //   }
+  //   const session = Buffer.from(
+  //     JSON.stringify(sessionObject)
+  //   ).toString('base64')
+  //   const keygrip = new Keygrip([cookieKey])
+  //   const now = new Date();
+  //   now.setTime(now.getTime() + 24 * 60 * 60 * 1000);
+  //   console.log(now)
+  //   const sig = keygrip.sign('session=' + session)
+  //   await page.setCookie({ 'name': 'session', 'value': session, expires: now.getTime() },
+  //     { 'name': 'sessionsig', 'value': sig, expires: now.getTime() })
+  // await page.setCookie({ 'name': 'session.sig', 'value': sig })
+  // await page.goto('localhost:3000')
+  // })
 })
